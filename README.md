@@ -37,11 +37,42 @@ Finally it checks if they are eligible to receive the upgrade:
 
 
 # Data Model
-The data models for this policy are stored under the policy/data directories
+The data models for this policy are stored under the policy/data directories. There are several states for the data in order to show 
+how the policy adjusts based on changing state.
 
 
 # The Input Model
 The dynamic input for policy decisions is stored under the `input` directory. This input has a cluster id and a service name. The policy loads the right fleet data based on the service name and filters down it result set by the cluster id.
+
+# The response Model
+The response to an available upgrades query looks like:
+```
+{
+  "result": [
+    {
+      "id": 1,
+      "risk": 7,
+      "targetVersion": {
+        "dependencies": {
+          "observability": ">=1.2.0",
+          "strimzi": ">=2.5.1"
+        },
+        "meta": {
+          "criticalSecurityUpgrade": false,
+          "environments": [
+            "staging",
+            "production"
+          ],
+          "serviceImpacting": false
+        },
+        "next": [],
+        "service": "streams",
+        "version": "3.6.0"
+      }
+    }
+  ]
+}
+```
 
 
 # Future Enhancements

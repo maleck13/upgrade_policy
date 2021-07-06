@@ -7,7 +7,7 @@ package upgrade.rollout
 availableUpgrades[n]{
  some i
   # The fleet is grouped for each version by risk (both those that have already upgraded and those that could)
- groups := groupByAndVersionRisk
+ groups := groupByVersionAndRisk
   # for each fleet member on the specified cluster, get the next version
  fleet[i].clusterID == input.cid
  fm := fleet[i].members[_]
@@ -129,7 +129,7 @@ reverse(l) = [l[j] | _ = l[i]; j := (count(l) - 1) - i]
 
 
 #group each fleet member into the versions they could upgrade too and have upgraded too in groups defined by their risk tolerance
-groupByAndVersionRisk[g]{
+groupByVersionAndRisk[g]{
 		vf := versionToFleet[_]
         # get all the risk levels sorted highest to lowest in the fleet
         sr := sortedRisk(vf)

@@ -35,7 +35,17 @@ Finally it checks if they are eligible to receive the upgrade:
   - other supporting services
 - is this fleet member on a cluster labelled with the correct environment 
 
-## Future Enhancements
+
+# Data Model
+The data models for this policy are stored under the policy/data directories
+
+
+# The Input Model
+The dynamic input for policy decisions is stored under the `input` directory. This input has a cluster id and a service name. The policy loads the right fleet data based on the service name and filters down it result set by the cluster id.
+
+
+# Future Enhancements
+This is just a POC to show how this could be done via rego and OPA. Some enhancements I will be exploring include:
 
 # report a reason if no available upgrades
 # report a reason for any member that failed the policy

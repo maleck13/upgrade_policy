@@ -37,9 +37,9 @@ Finally it checks if they are eligible to receive the upgrade:
 
 ## Future Enhancements
 
-# report a reason if no available upgrades
-# report a reason for any member that failed the policy
-# change success to be based on eligible members only
+### report a reason if no available upgrades
+### report a reason for any member that failed the policy
+### change success to be based on eligible members only
 
 # Try it out
 

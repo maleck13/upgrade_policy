@@ -81,6 +81,8 @@ This is just a POC to show how this could be done via rego and OPA. Some enhance
 ### report a reason if no available upgrades
 ### report a reason for any member that failed the policy
 ### change success to be based on eligible members only
+### Look at optimizations:
+- Using maps over arrays
 
 # Try it out
 

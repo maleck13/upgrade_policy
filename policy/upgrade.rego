@@ -107,16 +107,6 @@ nextVersion(s) = v{
    v := vers
 }
 
-#for each service instance on a fleet member find the version they should go to
-#(note may need to take into account if we are skipping through versions and check if any version between current and next is service impacting )
-next[n]{
-	s := fleetMembers[_]
-	nvs := nextVersion(s)
-    n :={
-    	"service":s,
-        "nextVersion":nvs
-    }
-}
 # sort the fleet members by risk highest to lowest
 sortedRisk(vf) = r{
 	ef := vf.members

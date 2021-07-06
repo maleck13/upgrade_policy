@@ -47,7 +47,7 @@ versions := [
                             "production"
                         ],
                         "serviceImpacting":false,
-                        "criticalSecurityUpgrade":true
+                        "criticalSecurityUpgrade":false
                      },
                      "next":[
 

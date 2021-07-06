@@ -117,16 +117,18 @@ next[n]{
         "nextVersion":nvs
     }
 }
-
-
+# sort the fleet members by risk highest to lowest
 sortedRisk(vf) = r{
 	ef := vf.members
     risk := {x | x := ef[i].risk}
     sr := sort(risk)
     r := reverse(sr)
 }
+
 reverse(l) = [l[j] | _ = l[i]; j := (count(l) - 1) - i]
 
+
+#group each fleet member into the versions they could upgrade too and have upgraded too in groups defined by their risk tolerance
 groupByAndVersionRisk[g]{
 		vf := versionToFleet[_]
         # get all the risk levels sorted highest to lowest in the fleet
@@ -139,6 +141,7 @@ groupByAndVersionRisk[g]{
           ef := vf.members
           ef[l].risk == risk
           fm := ef[l] ] # all the members of the same risk eligble for the same version
+
           #there must be a more efficient way to do this. Count up all sucessful and failed upgrades within a rollout group
           success := [s |
              some o,p
@@ -160,6 +163,7 @@ groupByAndVersionRisk[g]{
         g := {vf.version.version:rolloutGroups}
 }
 
+# percentage of a given group that need to succeed before the next group is eligible to receive the upgrade
 successCrit = 100
 
 #are they in the first group

@@ -47,9 +47,9 @@ The dynamic input for policy decisions is stored under the `input` directory. Th
 # Future Enhancements
 This is just a POC to show how this could be done via rego and OPA. Some enhancements I will be exploring include:
 
-# report a reason if no available upgrades
-# report a reason for any member that failed the policy
-# change success to be based on eligible members only
+### report a reason if no available upgrades
+### report a reason for any member that failed the policy
+### change success to be based on eligible members only
 
 # Try it out
 

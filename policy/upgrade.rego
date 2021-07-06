@@ -101,6 +101,7 @@ currentVersion(s) = v{
 nextVersion(s) = v{
    some i
    c := currentVersion(s)
+   # just take the latest version in the next array. For add-ons there should only be 1 version, very likely also the same for streams
    nv := c.version.next[count(c.version.next)-1]
    vers = versions[i]
    vers.version == nv

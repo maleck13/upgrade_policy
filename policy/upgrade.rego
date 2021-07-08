@@ -204,6 +204,7 @@ dependenciesMet(v,s) = true{
 dependencyMet(name,version, available) = true {
    startswith(version, ">=")
    vers := replace(version, ">=", "")
+   semver.is_valid(vers)
    some i
    available[i].name == name
    semver.compare(available[i].version, vers) >= 0
@@ -212,6 +213,7 @@ dependencyMet(name,version, available) = true {
 dependencyMet(name,version, available) = true {
    some i
    available[i].name == name
+   semver.is_valid(version)
    semver.compare(available[i].version, version) == 0
 }
 
@@ -221,23 +223,26 @@ dependencyMet(name,version, available) = true {
    vers := replace(version, ">", "")
    some i
    available[i].name == name
-   semver.compare(available[i].version, version) > 0
+   semver.is_valid(vers)
+   semver.compare(available[i].version, vers) > 0
 }
 
 dependencyMet(name,version, available) = true {
    startswith(version, "<")
    vers := replace(version, "<", "")
+   semver.is_valid(vers)
    some i
    available[i].name == name
-   semver.compare(available[i].version, version) == -1
+   semver.compare(available[i].version, vers) == -1
 }
 
 dependencyMet(name,version, available) = true {
    startswith(version, "<=")
    vers := replace(version, "<=", "")
+   semver.is_valid(vers)
    some i
    available[i].name == name
-   semver.compare(available[i].version, version) <= 0
+   semver.compare(available[i].version, vers) <= 0
 }
 
 

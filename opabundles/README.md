@@ -167,3 +167,30 @@ curl -sS localhost:8181/v1/data/managed-api-service/fleet?pretty=true | jq .resu
 curl -sS localhost:8181/v1/policies | jq .result[].id
 "policies/upgrade/upgrade.rego"
 ```
+
+Verify that the upgrade policy is working:
+
+```bash
+curl -sS localhost:8181/v1/data/upgrade/rollout/availableUpgrades -d '{"input":{"cid":"0","service":"managed-api-service"}}' | jq
+{
+  "result": [
+    {
+      "id": 1,
+      "risk": 7,
+      "targetVersion": {
+        "dependencies": {
+          "platform": ">=4.8.0"
+        },
+        "meta": {
+          "criticalSecurityUpgrade": false,
+          "serviceImpacting": false
+        },
+        "next": [],
+        "service": "managed-api-service",
+        "version": "1.9.0"
+      }
+    }
+  ]
+}
+
+```

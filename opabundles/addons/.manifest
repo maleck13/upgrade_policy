@@ -1,0 +1,3 @@
+{
+  "roots": ["managed-api-service", "prow-operator"]
+}

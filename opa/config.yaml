@@ -1,0 +1,27 @@
+services:
+  - name: addons-bundle-server
+    url: http://localhost:3000
+  - name: streams-bundle-server
+    url: http://localhost:3000
+  - name: policies-bundle-server
+    url: http://localhost:3000
+
+bundles:
+  addons:
+    service: addons-bundle-server
+    resource: addons/bundle.tar.gz
+    polling:
+      min_delay_seconds: 10
+      max_delay_seconds: 20
+  streams:
+    service: streams-bundle-server
+    resource: streams/bundle.tar.gz
+    polling:
+      min_delay_seconds: 10
+      max_delay_seconds: 20
+  policies:
+    service: policies-bundle-server
+    resource: policies/bundle.tar.gz
+    polling:
+      min_delay_seconds: 60
+      max_delay_seconds: 120

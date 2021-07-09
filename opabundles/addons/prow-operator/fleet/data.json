@@ -1,0 +1,28 @@
+[
+  {
+    "clusterID": "0",
+    "cloud": "aws",
+    "labels": {},
+    "members": [
+      {
+        "name": "prow-operator",
+        "version": "1.0.0",
+        "subscription": "1",
+        "id": 1,
+        "risk": 7,
+        "upgradeStatus": [
+          {
+            "version": "1.0.0",
+            "status": "successful"
+          }
+        ]
+      }
+    ],
+    "services": [
+      {
+        "name": "managed-api-service",
+        "version": "2.5.1"
+      }
+    ]
+  }
+]

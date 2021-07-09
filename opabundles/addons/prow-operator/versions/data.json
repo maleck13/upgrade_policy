@@ -1,0 +1,14 @@
+[
+  {
+    "service": "prow-operator",
+    "version": "1.1.0",
+    "meta": {
+      "serviceImpacting": false,
+      "criticalSecurityUpgrade": false
+    },
+    "next": [],
+    "dependencies": {
+      "platform": ">=4.7.0"
+    }
+  }
+]

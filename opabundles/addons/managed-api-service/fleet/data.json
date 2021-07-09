@@ -8,7 +8,7 @@
         "name": "managed-api-service",
         "version": "1.8.0",
         "subscription": "1",
-        "id": 1,
+        "id": "managed-api-service",
         "risk": 7,
         "upgradeStatus": [
           {
@@ -42,7 +42,7 @@
         "name": "managed-api-service",
         "version": "1.8.0",
         "subscription": "2",
-        "id": 2,
+        "id": "managed-api-service",
         "risk": 1,
         "upgradeStatus": [
           {
@@ -76,7 +76,7 @@
         "name": "managed-api-service",
         "version": "1.8.0",
         "subscription": "3",
-        "id": 3,
+        "id": "managed-api-service",
         "risk": 5,
         "upgradeStatus": [
           {

@@ -8,7 +8,7 @@
         "name": "prow-operator",
         "version": "1.0.0",
         "subscription": "1",
-        "id": 1,
+        "id": "prow-operator",
         "risk": 7,
         "upgradeStatus": [
           {
@@ -20,8 +20,12 @@
     ],
     "services": [
       {
+        "name": "platform",
+        "version": "4.8.10"
+      },
+      {
         "name": "managed-api-service",
-        "version": "2.5.1"
+        "version": "1.8.0"
       }
     ]
   }

@@ -1,22 +1,23 @@
 package upgrade.rollout
 
-
+#Note this is just a POC. It could likely be made a lot more efficient
 
 
 #build a set of fleet members on a specified cluster who should be upgraded and what version they should be upgraded to. return [{"id":"1","targetVersion":"3.6.0"}]
 availableUpgrades[n]{
  some i
-  # The fleet is grouped for each version by risk (both those that have already upgraded and those that could)
+  # The fleet is grouped for each version by risk (both those that have already upgraded (so success can be measured) and those that could)
  groups := groupByVersionAndRisk
-  # for each fleet member on the specified cluster, get the next version
+# filter down to the cluster being queried 
  fleet[i].clusterID == input.cid
  fm := fleet[i].members[_]
+ # for each fleet member on the specified cluster, get the next version
  nv := nextVersion(fm)
  #get the rollout plan for this members next version
  versionRolloutGroups := groups[_][nv.version]
- # get the group they are in and the previous group check the previous group has met its success criterea or are they in the first group
+ # get the group they are in and the previous group check the previous group has met the success criterea or are they in the first group
  inActiveGroup(versionRolloutGroups, fm.id)
- # check they are eligible for the version
+ # if they are active, check they are eligible for the version
  eligibleForVersion(nv,fm)
 
  n :={

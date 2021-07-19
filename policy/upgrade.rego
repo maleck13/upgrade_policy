@@ -29,12 +29,10 @@ availableUpgrades[n]{
 }
 
 fleet[f]{
-  #service := input.service
   f := input.fleet[_]
 }
 
 versions[v]{
-  #service := input.service
   v := input.versions[_]
 }
 

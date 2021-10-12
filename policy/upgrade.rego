@@ -1,7 +1,22 @@
 package upgrade.rollout
 
+# percentage of a given group that need to succeed before the next group is eligible to receive the upgrade
+  default successThreshold = 100
+
+  successThreshold = st{
+    not input.successThreshold < 0
+    st = input.successThreshold
+  }
 
 
+# default max concurrent upgrades per cluster (this is for services with more than one instance on a cluster)
+default maxConcurrentUpgradesPerCluster = 1
+
+
+maxConcurrentUpgradesPerCluster = m{
+  not input.maxConcurrentUpgrades <= 0
+  m = input.successThreshold
+}
 
 #build a set of fleet members on a specified cluster who should be upgraded and what version they should be upgraded to. return [{"id":"1","targetVersion":"3.6.0"}]
 availableUpgrades[n]{
@@ -27,13 +42,16 @@ availableUpgrades[n]{
 
 }
 
+phasedRolloutForVersion[version] = pr{
+  version := input.version
+  pr= groups[_][version]
+}
+
 fleet[f]{
-  #service := input.service
   f := input.fleet[_]
 }
 
 versions[v]{
-  #service := input.service
   v := input.versions[_]
 }
 
@@ -92,7 +110,6 @@ currentVersion(s) = v{
    s.version == vers.version
    v :={
       "version": vers,
-      "index": i,
       "service": s
    }
 }
@@ -146,16 +163,18 @@ groupByVersionAndRisk[g]{
             groupMembers[b].upgradeStatus[c].version == vf.version.version
             groupMembers[b].upgradeStatus[c].status == "failed"
             f := groupMembers[b].upgradeStatus[c]
-          ]
-          group := {"index":i, "members":groupMembers, "status":{"success":count(success),"failure":count(failure), "total":count(groupMembers)}}
+          ],
+          inEligible := [e |
+            some x
+            not eligibleForVersion(vf,groupMembers[x])
+          ],
+          group := {"members":groupMembers, "status":{"success":count(success),"failure":count(failure), "inEligible":count(inEligible), "total":count(groupMembers) - count(inEligible)}}
 
         ]
 
         g := {vf.version.version:rolloutGroups}
 }
 
-# percentage of a given group that need to succeed before the next group is eligible to receive the upgrade
-successCrit = 100
 
 #are they in the first group
 inActiveGroup(vgs, id) = true{
@@ -173,7 +192,7 @@ inActiveGroup(vgs, id) = true{
   i > 0
   previous := vgs[i-1]
   #total success in the group by total fleet members in the group
-  (previous.status.success / previous.status.total) * 100 >= successCrit
+  (previous.status.success / previous.status.total) * 100 >= successThreshold
 }
 
 
@@ -248,7 +267,6 @@ dependencyMet(name,version, available) = true {
 
 #empty environment set so all good
 eligibleEnvironment(v)=true{
-  c := cluster
   count(v.meta.environments) == 0
 }
 

@@ -57,14 +57,14 @@ opa run --server --bundle ./opabundles/bundle.tar.gz
 ```
 
 ```bash
-curl -sS localhost:8181/v1/data/managed-api-service/versions?pretty=true | jq .result[].version
+curl -s localhost:8181/v1/data/managed-api-service/versions?pretty=true | jq .result[].version
 "1.8.0"
 "1.9.0"
-curl -sS localhost:8181/v1/data/managed-api-service/fleet?pretty=true | jq .result[].clusterID
+curl -s localhost:8181/v1/data/managed-api-service/fleet?pretty=true | jq .result[].clusterID
 "0"
 "1"
 "2"
-curl -sS localhost:8181/v1/policies | jq .result[].id
+curl -s localhost:8181/v1/policies | jq .result[].id
 "opabundles/bundle.tar.gz/upgrade/upgrade.rego"
 ```
 
@@ -106,14 +106,14 @@ opa run --server --bundle ./opabundles/addons/bundle.tar.gz ./opabundles/streams
 ```
 
 ```bash
-curl -sS localhost:8181/v1/data/managed-api-service/versions?pretty=true | jq .result[].version
+curl -s localhost:8181/v1/data/managed-api-service/versions?pretty=true | jq .result[].version
 "1.8.0"
 "1.9.0"
-curl -sS localhost:8181/v1/data/managed-api-service/fleet?pretty=true | jq .result[].clusterID
+curl -s localhost:8181/v1/data/managed-api-service/fleet?pretty=true | jq .result[].clusterID
 "0"
 "1"
 "2"
-curl -sS localhost:8181/v1/policies | jq .result[].id
+curl -s localhost:8181/v1/policies | jq .result[].id
 "opabundles/policies/bundle.tar.gz/upgrade/upgrade.rego"
 ```
 
@@ -141,7 +141,7 @@ curl localhost:3000/addons/.manifest
 
 Start opa with the required configuration:
 
-```
+```bash
 opa run -s -c opa/config.yaml 
 {"addrs":[":8181"],"diagnostic-addrs":[],"level":"info","msg":"Initializing server.","time":"2021-07-09T10:14:49+01:00"}
 {"level":"info","msg":"Starting bundle loader.","name":"addons","plugin":"bundle","time":"2021-07-09T10:14:49+01:00"}
@@ -157,21 +157,21 @@ opa run -s -c opa/config.yaml
 Check the opa server has the expected data and policies from the bundles:
 
 ```bash
-curl -sS localhost:8181/v1/data/managed-api-service/versions?pretty=true | jq .result[].version
+curl -s localhost:8181/v1/data/managed-api-service/versions?pretty=true | jq .result[].version
 "1.8.0"
 "1.9.0"
-curl -sS localhost:8181/v1/data/managed-api-service/fleet?pretty=true | jq .result[].clusterID
+curl -s localhost:8181/v1/data/managed-api-service/fleet?pretty=true | jq .result[].clusterID
 "0"
 "1"
 "2"
-curl -sS localhost:8181/v1/policies | jq .result[].id
+curl -s localhost:8181/v1/policies | jq .result[].id
 "policies/upgrade/upgrade.rego"
 ```
 
 Verify that the upgrade policy is working:
 
 ```bash
-curl -sS localhost:8181/v1/data/upgrade/rollout/availableUpgrades -d '{"input":{"cid":"0","service":"managed-api-service"}}' | jq
+curl -s localhost:8181/v1/data/upgrade/rollout/availableUpgrades -d '{"input":{"cid":"0","service":"managed-api-service"}}' | jq
 {
   "result": [
     {

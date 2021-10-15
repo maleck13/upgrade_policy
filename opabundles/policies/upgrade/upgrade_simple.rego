@@ -1,6 +1,6 @@
 package play
 
-# https://play.openpolicyagent.org/p/exsmhl4qlh
+#https://play.openpolicyagent.org/p/40r05mbY5y
 
 # percentage of a given group that need to succeed before the next group is eligible to receive the upgrade
 default successThreshold = 90
@@ -33,6 +33,17 @@ inActiveGroup{
 inActiveGroup{
  # previous group success crit met
  (input.previousGroup.success / (input.previousGroup.total - input.previousGroup.ineligible)) * 100 >= successThreshold
+}
+
+
+default minRiskLevelMet = false
+
+
+minRiskLevelMet {
+  not input.version.meta.minRiskLevel
+}
+minRiskLevelMet {
+   input.version.meta.minRiskLevel <= input.fleetMember.risk   
 }
 
 default eligibleEnvironment = false

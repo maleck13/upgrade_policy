@@ -20,7 +20,8 @@
         "meta":{
            "serviceImpacting":false,
            "criticalSecurityUpgrade":false,
-           "environments":["staging"] 
+           "environments":["staging"],
+           "minRiskLevel":999   
         },
         "next":[
            
@@ -36,7 +37,8 @@
      "meta":{
         "serviceImpacting":false,
         "criticalSecurityUpgrade":false,
-        "environments":["staging"]  
+        "environments":["staging"],
+        "minRiskLevel":999  
      },
      "next":[
         
@@ -77,41 +79,10 @@
        }
     ]
  },
-  "fleetMembers":[{
-     "clusterID":"0",
-     "cloud":"aws",
-     "labels":{
-        
-     },
-     "name":"managed-api-service",
-     "version":"1.8.0",
-     "subscription":"1",
-     "id":"managed-api-service",
-     "risk":7,
-     "upgradeStatus":[
-        {
-           "version":"1.8.0",
-           "status":"successful"
-        }
-     ],
-     "services":[
-        {
-           "name":"foo",
-           "version":"2.5.1"
-        },
-        {
-           "name":"observability",
-           "version":"1.2.1"
-        },
-        {
-           "name":"platform",
-           "version":"4.8.10"
-        }
-     ]
-  }],
   "previousGroup":{
      "version":"1.9.0",
-     "service":"RHOAM",
+     "service":"managed-api-service",
+     "risk":20,
      "total":10,
      "success":7,
      "failed":0,
